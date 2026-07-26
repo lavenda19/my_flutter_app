@@ -22,17 +22,13 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
 
-
         backgroundColor: secondaryColor,
         centerTitle: true,
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
-
           children: [
             const Text(
               "Welcome 👋",
@@ -41,7 +37,6 @@ class _DashboardState extends State<Dashboard> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 5),
             Text(
               "Find your favourite recipes",
@@ -51,7 +46,6 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
             const SizedBox(height: 20),
-
             // Search bar
             TextField(
               decoration: InputDecoration(
@@ -65,80 +59,101 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
             ),
-
-
             const SizedBox(height: 20),
             const Text(
               "Popular Recipes",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-
               ),
             ),
             const SizedBox(height: 10),
 
+            Expanded(
+              child: ListView.builder(
+                itemCount: recipes.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 6,
+                    margin: const EdgeInsets.only(bottom: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(20),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                RecipeDetailsScreen(
+                                  recipe: recipes[index],
+                                ),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                            child: Image.network(
+                              recipes[index].image,
+                              width: double.infinity,
+                              height: 180,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
 
-    Expanded(
-    child: ListView.builder(
-    itemCount: recipes.length,
-    itemBuilder: (context, index) {
-    return Card(
-    elevation: 5,
-    margin: const EdgeInsets.only(bottom: 15),
-    shape: RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(15),
-    ),
+                          Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-    child: ListTile(
-    contentPadding: const EdgeInsets.all(10),
-    leading: ClipRRect(
-    borderRadius: BorderRadius.circular(10),
-    child: Image.network(
-    recipes[index].image,
-    width: 70,
-    height: 70,
-    fit: BoxFit.cover,
-    ),
-    ),
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
 
-    title: Text(
-    recipes[index].name,
-    style: const TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 18,
-    ),
-    ),
+                                  children: [
+                                    Text(
+                                      recipes[index].name,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
 
-    subtitle: Text(
-    recipes[index].time,
-    ),
+                                    const SizedBox(height: 5),
+                                    Text(
+                                      "⏱ ${recipes[index].time}",
+                                      style: TextStyle(
+                                        color: Colors.grey[700],
+                                      ),
+                                    ),
+                                  ],
+                                ),
 
-    trailing: const Icon(
-    Icons.favorite_border,
-    color: Colors.red,
-    ),
-
-      onTap: () {
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RecipeDetailsScreen(
-              recipe: recipes[index],
+                                const Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.red,
+                                  size: 30,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-        );
-
-      },
-    ),
-    );
-    },
-    ),
-    ),
           ],
         ),
       ),
     );
   }
-}
+  }
