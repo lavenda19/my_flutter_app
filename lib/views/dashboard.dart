@@ -8,6 +8,23 @@ class Dashboard extends StatefulWidget {
   State<Dashboard> createState() => _DashboardState();
 }
 class _DashboardState extends State<Dashboard> {
+  List filteredRecipes = [];
+  @override
+  void initState() {
+    super.initState();
+    filteredRecipes = List.from(recipes);
+  }
+
+  void searchRecipe(String value) {
+    setState(() {
+      filteredRecipes = recipes.where((recipe) {
+        return recipe.name
+            .toLowerCase()
+            .contains(value.toLowerCase());
+      }).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +65,7 @@ class _DashboardState extends State<Dashboard> {
             const SizedBox(height: 20),
             // Search bar
             TextField(
+              onChanged: searchRecipe,
               decoration: InputDecoration(
                 hintText: "Search recipes...",
                 prefixIcon: const Icon(Icons.search),
@@ -71,7 +89,7 @@ class _DashboardState extends State<Dashboard> {
 
             Expanded(
               child: ListView.builder(
-                itemCount: recipes.length,
+                itemCount: filteredRecipes.length,
                 itemBuilder: (context, index) {
                   return Card(
                     elevation: 6,
@@ -87,7 +105,7 @@ class _DashboardState extends State<Dashboard> {
                           MaterialPageRoute(
                             builder: (context) =>
                                 RecipeDetailsScreen(
-                                  recipe: recipes[index],
+                                  recipe: filteredRecipes[index],
                                 ),
                           ),
                         );
@@ -101,7 +119,7 @@ class _DashboardState extends State<Dashboard> {
                               topRight: Radius.circular(20),
                             ),
                             child: Image.network(
-                              recipes[index].image,
+                              filteredRecipes[index].image,
                               width: double.infinity,
                               height: 180,
                               fit: BoxFit.cover,
@@ -119,7 +137,7 @@ class _DashboardState extends State<Dashboard> {
 
                                   children: [
                                     Text(
-                                      recipes[index].name,
+                                      filteredRecipes[index].name,
                                       style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold,
@@ -128,7 +146,7 @@ class _DashboardState extends State<Dashboard> {
 
                                     const SizedBox(height: 5),
                                     Text(
-                                      "⏱ ${recipes[index].time}",
+                                      "⏱ ${filteredRecipes[index].time}",
                                       style: TextStyle(
                                         color: Colors.grey[700],
                                       ),
@@ -136,10 +154,31 @@ class _DashboardState extends State<Dashboard> {
                                   ],
                                 ),
 
-                                const Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.red,
-                                  size: 30,
+                                IconButton(
+
+                                  onPressed: () {
+
+                                    setState(() {
+
+                                      filteredRecipes[index].isFavorite =
+                                      !filteredRecipes[index].isFavorite;
+
+                                    });
+
+                                  },
+
+                                  icon: Icon(
+
+                                    filteredRecipes[index].isFavorite
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
+
+                                    color: Colors.red,
+
+                                    size: 30,
+
+                                  ),
+
                                 ),
                               ],
                             ),
