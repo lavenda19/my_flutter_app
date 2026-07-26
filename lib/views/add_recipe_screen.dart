@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
-import '../config/colors.dart';
+import '../model/recipe.dart';
+import '../config/recipe_data.dart';
+
 class AddRecipeScreen extends StatefulWidget {
   const AddRecipeScreen({super.key});
+
   @override
   State<AddRecipeScreen> createState() => _AddRecipeScreenState();
 }
+
 class _AddRecipeScreenState extends State<AddRecipeScreen> {
-  final recipeNameController = TextEditingController();
+
+  final nameController = TextEditingController();
   final ingredientsController = TextEditingController();
   final instructionsController = TextEditingController();
   final timeController = TextEditingController();
   final imageController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+
       appBar: AppBar(
         title: const Text(
           "Add Recipe",
@@ -24,123 +30,179 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: secondaryColor,
+
         centerTitle: true,
+
+        backgroundColor: Colors.deepOrange,
       ),
 
+
       body: SingleChildScrollView(
+
         padding: const EdgeInsets.all(16),
+
         child: Column(
+
           children: [
-            buildTextField(
-              controller: recipeNameController,
-              hint: "Recipe Name",
-              icon: Icons.restaurant,
-            ),
-            const SizedBox(height: 15),
-            buildTextField(
-              controller: ingredientsController,
-              hint: "Ingredients",
-              icon: Icons.shopping_basket,
-              maxLines: 3,
-            ),
-            const SizedBox(height: 15),
-            buildTextField(
-              controller: instructionsController,
-              hint: "Cooking Instructions",
-              icon: Icons.menu_book,
-              maxLines: 4,
-            ),
-            const SizedBox(height: 15),
-            buildTextField(
-              controller: timeController,
-              hint: "Cooking Time (minutes)",
-              icon: Icons.timer,
-            ),
-            const SizedBox(height: 15),
-            buildTextField(
-              controller: imageController,
-              hint: "Image URL",
-              icon: Icons.image,
-            ),
-            const SizedBox(height: 30),
-            SizedBox(
-              width: double.infinity,
-              height: 50,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-                onPressed: (){
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Recipe Saved Successfully"),
-                    ),
-                  );
-                },
-                child: const Text(
-                  "Save Recipe",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
+
+
+            TextField(
+              controller: nameController,
+              decoration: InputDecoration(
+                labelText: "Recipe Name",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
                 ),
               ),
             ),
+
+
+            const SizedBox(height: 15),
+
+
+            TextField(
+              controller: ingredientsController,
+              decoration: InputDecoration(
+                labelText: "Ingredients",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            ),
+
+
+            const SizedBox(height: 15),
+
+
+            TextField(
+              controller: instructionsController,
+              maxLines: 4,
+              decoration: InputDecoration(
+                labelText: "Instructions",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            ),
+
+
+            const SizedBox(height: 15),
+
+
+            TextField(
+              controller: timeController,
+              decoration: InputDecoration(
+                labelText: "Cooking Time",
+                hintText: "Example: 30 minutes",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            ),
+
+
+            const SizedBox(height: 15),
+
+
+            TextField(
+              controller: imageController,
+              decoration: InputDecoration(
+                labelText: "Image URL",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            ),
+
+
+            const SizedBox(height: 25),
+
+
+            SizedBox(
+
+              width: double.infinity,
+
+              child: ElevatedButton(
+
+                onPressed: () {
+
+                  Recipe newRecipe = Recipe(
+
+                    name: nameController.text,
+
+                    ingredients: ingredientsController.text,
+
+                    instructions: instructionsController.text,
+
+                    time: timeController.text,
+
+                    image: imageController.text,
+
+                  );
+
+
+                  recipes.add(newRecipe);
+
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+
+                    const SnackBar(
+
+                      content: Text("Recipe Added Successfully"),
+
+                    ),
+
+                  );
+
+
+                  nameController.clear();
+                  ingredientsController.clear();
+                  instructionsController.clear();
+                  timeController.clear();
+                  imageController.clear();
+
+                },
+
+
+                style: ElevatedButton.styleFrom(
+
+                  backgroundColor: Colors.deepOrange,
+
+                  padding: const EdgeInsets.all(15),
+
+                  shape: RoundedRectangleBorder(
+
+                    borderRadius: BorderRadius.circular(15),
+
+                  ),
+
+                ),
+
+
+                child: const Text(
+
+                  "Save Recipe",
+
+                  style: TextStyle(
+
+                    color: Colors.white,
+
+                    fontSize: 18,
+
+                  ),
+
+                ),
+
+              ),
+
+            )
+
           ],
-        ),
-      ),
-    );
-  }
-
-
-
-  Widget buildTextField({
-
-    required TextEditingController controller,
-
-    required String hint,
-
-    required IconData icon,
-
-    int maxLines = 1,
-
-  }){
-
-    return TextField(
-
-      controller: controller,
-
-      maxLines: maxLines,
-
-
-      decoration: InputDecoration(
-
-        hintText: hint,
-
-        prefixIcon: Icon(icon),
-
-
-        filled: true,
-
-        fillColor: Colors.white,
-
-
-        border: OutlineInputBorder(
-
-          borderRadius: BorderRadius.circular(15),
-
-          borderSide: BorderSide.none,
 
         ),
 
       ),
 
     );
-
   }
-
 }
