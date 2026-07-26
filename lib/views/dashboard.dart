@@ -7,14 +7,10 @@ class Dashboard extends StatefulWidget {
   State<Dashboard> createState() => _DashboardState();
 }
 class _DashboardState extends State<Dashboard> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-
       appBar: AppBar(
         title: const Text(
           "Recipe App",
@@ -26,7 +22,6 @@ class _DashboardState extends State<Dashboard> {
         backgroundColor: secondaryColor,
         centerTitle: true,
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -73,25 +68,17 @@ class _DashboardState extends State<Dashboard> {
     Expanded(
     child: ListView.builder(
     itemCount: recipes.length,
-
     itemBuilder: (context, index) {
-
     return Card(
     elevation: 5,
-
     margin: const EdgeInsets.only(bottom: 15),
-
     shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(15),
     ),
-
     child: ListTile(
-
     contentPadding: const EdgeInsets.all(10),
-
     leading: ClipRRect(
     borderRadius: BorderRadius.circular(10),
-
     child: Image.network(
     recipes[index].image,
     width: 70,
@@ -99,23 +86,16 @@ class _DashboardState extends State<Dashboard> {
     fit: BoxFit.cover,
     ),
     ),
-
-
     title: Text(
     recipes[index].name,
-
     style: const TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 18,
     ),
     ),
-
-
     subtitle: Text(
     recipes[index].time,
     ),
-
-
     trailing: const Icon(
     Icons.favorite_border,
     color: Colors.red,
@@ -125,7 +105,6 @@ class _DashboardState extends State<Dashboard> {
     },
     ),
     ),
-
           ],
         ),
       ),
