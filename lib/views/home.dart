@@ -6,8 +6,8 @@ import 'package:my_flutter_app/views/recipe_details_screen.dart';
 
 var screens=[
   Dashboard(),
-  AddRecipeScreen(),
   RecipeDetailsScreen(),
+  AddRecipeScreen(),
 
 ];
 int position=0;
