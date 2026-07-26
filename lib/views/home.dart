@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:my_flutter_app/views/add_recipe_screen.dart';
 import 'package:my_flutter_app/views/dashboard.dart';
 import 'package:my_flutter_app/views/recipe_details_screen.dart';
+import 'package:my_flutter_app/config/recipe_data.dart';
 
 var screens=[
   Dashboard(),
-  RecipeDetailsScreen(),
   AddRecipeScreen(),
-
+  RecipeDetailsScreen(
+    recipe: recipes[0],
+  ),
 ];
 int position=0;
 class HomeScreen extends StatefulWidget {

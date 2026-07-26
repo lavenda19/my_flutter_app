@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../config/colors.dart';
 import '../config/recipe_data.dart';
+import 'recipe_details_screen.dart';
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
   @override
@@ -11,6 +12,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
+
       appBar: AppBar(
         title: const Text(
           "Recipe App",
@@ -19,13 +21,18 @@ class _DashboardState extends State<Dashboard> {
             fontWeight: FontWeight.bold,
           ),
         ),
+
+
         backgroundColor: secondaryColor,
         centerTitle: true,
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+
+
           children: [
             const Text(
               "Welcome 👋",
@@ -34,6 +41,7 @@ class _DashboardState extends State<Dashboard> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+
             const SizedBox(height: 5),
             Text(
               "Find your favourite recipes",
@@ -43,6 +51,7 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
             const SizedBox(height: 20),
+
             // Search bar
             TextField(
               decoration: InputDecoration(
@@ -56,15 +65,20 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
             ),
+
+
             const SizedBox(height: 20),
             const Text(
               "Popular Recipes",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
+
               ),
             ),
             const SizedBox(height: 10),
+
+
     Expanded(
     child: ListView.builder(
     itemCount: recipes.length,
@@ -75,6 +89,7 @@ class _DashboardState extends State<Dashboard> {
     shape: RoundedRectangleBorder(
     borderRadius: BorderRadius.circular(15),
     ),
+
     child: ListTile(
     contentPadding: const EdgeInsets.all(10),
     leading: ClipRRect(
@@ -86,6 +101,7 @@ class _DashboardState extends State<Dashboard> {
     fit: BoxFit.cover,
     ),
     ),
+
     title: Text(
     recipes[index].name,
     style: const TextStyle(
@@ -93,13 +109,28 @@ class _DashboardState extends State<Dashboard> {
     fontSize: 18,
     ),
     ),
+
     subtitle: Text(
     recipes[index].time,
     ),
+
     trailing: const Icon(
     Icons.favorite_border,
     color: Colors.red,
     ),
+
+      onTap: () {
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RecipeDetailsScreen(
+              recipe: recipes[index],
+            ),
+          ),
+        );
+
+      },
     ),
     );
     },
