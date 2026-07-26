@@ -2,16 +2,14 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:my_flutter_app/views/add_recipe_screen.dart';
 import 'package:my_flutter_app/views/dashboard.dart';
-import 'package:my_flutter_app/views/recipe_details_screen.dart';
-import 'package:my_flutter_app/config/recipe_data.dart';
+import 'package:my_flutter_app/views/favorite_screen.dart';
 
-var screens=[
+var screens = [
   Dashboard(),
   AddRecipeScreen(),
-  RecipeDetailsScreen(
-    recipe: recipes[0],
-  ),
+  FavoriteScreen(),
 ];
+
 int position=0;
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,12 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
      bottomNavigationBar:CurvedNavigationBar(
        backgroundColor: Colors.blueAccent,
+
        items: <Widget>[
-         Icon(Icons.home, size: 30),              // Dashboard/Home
-         Icon(Icons.restaurant_menu, size: 30),   // Recipe Screen
-         Icon(Icons.add_circle, size: 30),        // Add Recipe
-        // Icon(Icons.person, size: 30),            // Profile
+         Icon(Icons.home, size: 30),
+         Icon(Icons.add_circle, size: 30),
+         Icon(Icons.favorite, size: 30),
        ],
+
        onTap: (index) {
          //Handle button tap
          setState(() {

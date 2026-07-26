@@ -9,5 +9,4 @@ List<Recipe> recipes = [
     time: "30 minutes",
     image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398",
   ),
-
 ];
