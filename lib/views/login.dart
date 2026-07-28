@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-
+import 'package:get_storage/get_storage.dart';
 import '../config/colors.dart';
+
+TextEditingController usernameController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+var store =GetStorage();
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    usernameController.text = store.read("username")?? "";
     return Scaffold(
       appBar: AppBar(
         title: Text("Grading Application"),
@@ -51,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             TextField(
+              controller: usernameController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.person),
@@ -66,6 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             TextField(
+              controller: passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -78,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 MaterialButton(
                   onPressed: () {
+                    store.write("username", usernameController.text);
                     Get.toNamed("/home");
                   },
                   color: primaryColor,
